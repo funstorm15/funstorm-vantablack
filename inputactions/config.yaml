@@ -1,0 +1,17 @@
+# Swallow all 3+ finger swipes and pinches. (KWin's horizontal desktop swipe is also
+# disabled by keeping the virtual desktops in one column: Desktops/Rows = 5.)
+touchpad:
+  gestures:
+    - type: swipe
+      direction: any
+      conditions:
+        - $fingers >= 3
+      actions:
+        - on: begin
+          command: "true"
+
+    - type: pinch
+      direction: any
+      actions:
+        - on: begin
+          command: "true"

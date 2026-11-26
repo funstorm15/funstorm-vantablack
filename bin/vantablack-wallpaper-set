@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Set the desktop wallpaper through the "Omarchy Reveal" wallpaper plugin (animated reveal).
+img=$(realpath "$1") || exit 1; [ -f "$img" ] || exit 1
+js_img=${img//\\/\\\\}; js_img=${js_img//\'/\\\'}
+qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "
+desktops().forEach(function (d) {
+  if (d.wallpaperPlugin !== 'funstorm.reveal') d.wallpaperPlugin = 'funstorm.reveal';
+  d.currentConfigGroup = ['Wallpaper', 'funstorm.reveal', 'General'];
+  d.writeConfig('Image', 'file://$js_img');
+});" >/dev/null
+mkdir -p "$HOME/.local/state" && printf '%s\n' "$img" > "$HOME/.local/state/vantablack-wallpaper-current"

@@ -1,0 +1,14 @@
+{
+    "KPackageStructure": "KWin/Effect",
+    "KPlugin": {
+        "Authors": [{ "Name": "funstorm" }],
+        "Category": "Virtual Desktop Switching Animation",
+        "Description": "Old desktop shrinks and fades away while the new one zooms in",
+        "EnabledByDefault": false,
+        "Id": "zoomdesktop",
+        "License": "GPL",
+        "Name": "Zoom"
+    },
+    "X-KWin-Exclusive-Category": "desktop-animations",
+    "X-Plasma-API": "javascript"
+}

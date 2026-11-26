@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Omarchy-style wallpaper picker for KDE Plasma (double-click desktop / Meta+Ctrl+Space).
+DIR="${1:-${WALLPAPER_DIR:-$HOME/Pictures/Wallpapers/vantablack}}"
+STATE="$HOME/.local/state/vantablack-wallpaper-current"
+PICKER="${XDG_DATA_HOME:-$HOME/.local/share}/funstorm-vantablack/picker.qml"
+pgrep -f "$PICKER" >/dev/null && exit 0
+cur=$(cat "$STATE" 2>/dev/null); [ -n "$cur" ] || cur=none
+# Force Qt to print console.log to stderr (when started from Plasma it goes to the journal otherwise)
+export QT_FORCE_STDERR_LOGGING=1 QT_MESSAGE_PATTERN='%{message}'
+sel=$(qml6 "$PICKER" -- "$DIR" "$cur" 2>&1 | sed -n 's/^\(qml: \)\{0,1\}PICK //p' | tail -1)
+[ -n "$sel" ] && [ -f "$sel" ] || exit 0
+"$HOME/.local/bin/vantablack-wallpaper-set" "$sel"

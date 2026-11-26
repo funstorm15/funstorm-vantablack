@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# Keeps the patched desktop widget (double-click on empty desktop -> wallpaper picker)
+# in sync with the system copy. Runs at login; rebuilds only when Plasma was updated.
+set -e
+SYS=/usr/share/plasma/plasmoids/org.kde.desktopcontainment
+LOC=$HOME/.local/share/plasma/plasmoids/org.kde.desktopcontainment
+STAMP=$LOC/.system-stamp
+want=$(stat -c %Y "$SYS/contents/ui/FolderView.qml")
+[ -f "$STAMP" ] && [ "$(cat "$STAMP")" = "$want" ] && exit 0
+tmp=$(mktemp -d); cp -r "$SYS" "$tmp/pkg"
+F="$tmp/pkg/contents/ui/FolderView.qml"
+PICKER="$HOME/.local/bin/vantablack-wallpaper" python3 -I - "$F" <<'PY' || { rm -rf "$tmp" "$LOC"; exit 0; }   # patch failed -> fall back to stock widget
+import os, sys
+p=sys.argv[1]; s=open(p).read()
+s=s.replace('import "code/FolderTools.js" as FolderTools','import org.kde.plasma.plasma5support as P5Support\nimport "code/FolderTools.js" as FolderTools',1)
+anchor='''            if (!hoveredItem || hoveredItem.blank || gridView.currentIndex === -1 || gridView.ctrlPressed || gridView.shiftPressed) {
+                // Bug 357367: Replay mouse event, so containment actions assigned to left mouse button work.'''
+prop='''        property bool doubleClickInProgress: false'''
+if anchor not in s or prop not in s: sys.exit(1)
+s=s.replace(anchor,'''            if (mouse.button === Qt.LeftButton && (!hoveredItem || hoveredItem.blank) && !gridView.ctrlPressed && !gridView.shiftPressed) {
+                const now = Date.now();
+                if (now - listener.emptyClickTime < Application.styleHints.mouseDoubleClickInterval
+                    && Math.abs(mouse.x - listener.emptyClickX) < 12 && Math.abs(mouse.y - listener.emptyClickY) < 12) {
+                    listener.emptyClickTime = 0;
+                    wallpaperPickerExec.connectSource("@PICKER@");
+                    return;
+                }
+                listener.emptyClickTime = now;
+                listener.emptyClickX = mouse.x;
+                listener.emptyClickY = mouse.y;
+            }
+
+'''+anchor,1)
+s=s.replace(prop,prop+'''
+        property real emptyClickTime: 0
+        property real emptyClickX: 0
+        property real emptyClickY: 0
+        P5Support.DataSource {
+            id: wallpaperPickerExec
+            engine: "executable"
+            connectedSources: []
+            onNewData: function(source) { disconnectSource(source) }
+        }''',1)
+s=s.replace('@PICKER@', os.environ['PICKER'])
+open(p,'w').write(s)
+PY
+rm -rf "$LOC"; mkdir -p "${LOC%/*}"; mv "$tmp/pkg" "$LOC"; rm -rf "$tmp"
+echo "$want" > "$STAMP"
+# reload the desktop only if this was an update during a running session
+[ "$1" = "--restart" ] && systemctl --user restart plasma-plasmashell.service || true

@@ -1,0 +1,12 @@
+{
+    "KPackageStructure": "Plasma/Wallpaper",
+    "KPlugin": {
+        "Authors": [{ "Name": "funstorm" }],
+        "Description": "Image wallpaper with the Omarchy slanted reveal transition",
+        "Icon": "preferences-desktop-wallpaper",
+        "Id": "funstorm.reveal",
+        "License": "GPL",
+        "Name": "Omarchy Reveal"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0"
+}

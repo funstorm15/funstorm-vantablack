@@ -1,0 +1,14 @@
+{
+  "KPlugin": {
+    "Id": "funstorm.workspaces",
+    "Name": "Workspaces (Omarchy style)",
+    "Description": "Numbered virtual desktops like the Omarchy bar",
+    "Icon": "virtual-desktops",
+    "Category": "Windows and Tasks",
+    "License": "GPL-2.0+",
+    "Version": "1.0",
+    "Authors": [{ "Name": "funstorm" }]
+  },
+  "KPackageStructure": "Plasma/Applet",
+  "X-Plasma-API-Minimum-Version": "6.0"
+}
