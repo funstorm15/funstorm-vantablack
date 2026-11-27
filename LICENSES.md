@@ -9,6 +9,7 @@
 | `sddm/funstorm/` (code and lock/entry images) | MIT | Omarchy `default/sddm/omarchy`, recoloured and modified |
 | `sddm/funstorm/logo.png` | **not licensed for reuse** | FunStorm brand logo; replace it with your own |
 | `kwin/effects/cubeswitch/` | GPL-2.0-only OR GPL-3.0-only | modified copy of the Cube effect from KDE kdeplasma-addons, © Vlad Zahorodnii |
+| `kwin/tabbox/funstormwindowcube/` | GPL-2.0-or-later | window switcher layout; geometry and camera adapted from KDE's Cube effect (© Vlad Zahorodnii), switcher plumbing from KWin's Cover Switch (© Ismael Asensio) |
 | `kwin/effects/zoomdesktop/` | GPL-2.0-or-later | based on KWin's Fade Desktop effect, © Lucas Murray, Martin Gräßlin, Vlad Zahorodnii |
 | `kwin/scripts/krohnkite-overlay/` | MIT | modified `popup.qml` from Krohnkite, © Eon S. Jeon, Vjatcheslav V. Kolchkov; icons from this repo |
 | `bin/desktop-dblclick-patch` | MIT (the script) | patches KDE's desktop folder view (GPL) on your machine at runtime; no KDE code is stored here |
