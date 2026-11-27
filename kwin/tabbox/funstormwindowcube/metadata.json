@@ -1,0 +1,11 @@
+{
+    "KPackageStructure": "KWin/WindowSwitcher",
+    "KPlugin": {
+        "Authors": [{ "Name": "funstorm" }],
+        "Description": "Window switcher that shows your windows as the faces of a rotating 3D cube",
+        "Icon": "preferences-system-windows-effect-cube",
+        "Id": "funstormwindowcube",
+        "License": "GPL",
+        "Name": "Window Cube"
+    }
+}

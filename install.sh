@@ -50,6 +50,7 @@ backup_files=(
 )
 added_paths=(
     "$data/kwin/effects/cubeswitch" "$data/kwin/effects/zoomdesktop" "$data/kwin/effects/kwin6_effect_glitch"
+    "$data/kwin/tabbox/funstormwindowcube"
     "$data/kwin/scripts/krohnkite" "$data/plasma/plasmoids/funstorm.workspaces"
     "$data/plasma/wallpapers/funstorm.reveal" "$data/plasma/plasmoids/org.kde.desktopcontainment"
     "$data/color-schemes/Vantablack.colors" "$data/funstorm-vantablack"
@@ -140,9 +141,11 @@ step_packages() {
 
 step_files() {
     say "Effects, widgets, wallpaper plugin, scripts"
-    run mkdir -p "$data/kwin/effects" "$data/kwin/scripts" "$data/plasma/plasmoids" "$data/plasma/wallpapers" \
+    run mkdir -p "$data/kwin/effects" "$data/kwin/tabbox" "$data/kwin/scripts" "$data/plasma/plasmoids" "$data/plasma/wallpapers" \
         "$data/color-schemes" "$data/funstorm-vantablack" "$data/applications" "$cfg/autostart" "$bindir" "$cfg/inputactions"
     run cp -r "$repo/kwin/effects/cubeswitch" "$repo/kwin/effects/zoomdesktop" "$data/kwin/effects/"
+    run rm -rf "$data/kwin/tabbox/funstormwindowcube"
+    run cp -r "$repo/kwin/tabbox/funstormwindowcube" "$data/kwin/tabbox/"
     # Krohnkite: copy the packaged script and lay the Vantablack popup + icons over it
     if [ -d /usr/share/kwin/scripts/krohnkite ]; then
         run rm -rf "$data/kwin/scripts/krohnkite"
@@ -217,7 +220,7 @@ step_look() {
     kw kwinrc org.kde.kdecoration2 library org.kde.darkly
     kw kwinrc org.kde.kdecoration2 theme Darkly
     kw kwinrc org.kde.kdecoration2 BorderSize Normal
-    kw kwinrc TabBox LayoutName coverswitch
+    kw kwinrc TabBox LayoutName funstormwindowcube
 }
 
 step_kwin() {

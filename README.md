@@ -27,7 +27,7 @@
 | **Other desktop switches** | Zoom animation (old desktop sinks away, new one comes forward) |
 | **Login screen** | Omarchy's SDDM theme with the FunStorm logo, black (optional) |
 | **Touchpad** | 3- and 4-finger gestures off (Omarchy-like), via InputActions |
-| **Extras** | Glitch close animation, Cover Switch window switcher, Ghostty config |
+| **Extras** | Glitch close animation, Window Cube switcher, Ghostty config |
 
 ### Requirements
 
@@ -64,7 +64,7 @@ Before changing anything the installer copies your KDE configs to `~/.local/stat
 | `Alt+Tab` | cube; `Tab` again turns further, release `Alt` to enter |
 | `Meta+Shift+1…5` | move window to desktop |
 | `Meta+C` | open the cube freely |
-| `Meta+Tab` | window switcher (Cover Switch) |
+| `Meta+Tab` | window switcher (Window Cube: your windows on a rotating 3D cube) |
 | `Meta+W` | close window |
 | `Meta+F` | fullscreen on/off |
 | `Meta+T` | float / tile window |
@@ -88,6 +88,7 @@ Before changing anything the installer copies your KDE configs to `~/.local/stat
 | Path | What it is |
 |---|---|
 | `kwin/effects/cubeswitch` | KDE's Cube effect, extended: jump to a desktop by number, `Alt+Tab` with release-to-enter, interruptible, fast |
+| `kwin/tabbox/funstormwindowcube` | window switcher layout: open windows as the faces of a rotating cube, shown at their own size with no background (1 window = a card, 2 = a two-sided card, 3+ = a prism) |
 | `kwin/effects/zoomdesktop` | desktop-switch animation (based on KWin's Fade Desktop) |
 | `kwin/scripts/krohnkite-overlay` | smaller Vantablack layout popup + vector icons, laid over your installed Krohnkite |
 | `plasma/plasmoids/funstorm.workspaces` | Omarchy-style desktop numbers for the panel |
